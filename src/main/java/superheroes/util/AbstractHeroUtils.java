@@ -15,7 +15,7 @@ public class AbstractHeroUtils {
 
     public static AbstractHero createHeroFromString(String superHeroString)  {
         String[] heroParts = superHeroString.split(";");
-
+        System.out.println(heroParts.length);
         if (heroParts.length != 6){
             throw new InvalidHeroDataException("Wrong number of fields expected 6 " +  " but was: " + heroParts.length );
         }
@@ -41,60 +41,31 @@ public class AbstractHeroUtils {
         }
     }
 
-    public static void  saveHeroesToFile (List<AbstractHero> heroes ,String fileName){
-//        FileWriter fileWriter;
-//        BufferedWriter bufferedWriter;
-//        PrintWriter printWriter;
-
-        try (FileWriter fileWriter =  new FileWriter(fileName);
+    public static void saveHeroesToFile(List<AbstractHero> heroes, String fileName) {
+        try (FileWriter fileWriter = new FileWriter(fileName);
              BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            PrintWriter printWriter =  new PrintWriter(bufferedWriter)){
-            heroes.forEach(hero -> printWriter.write(hero.wyciagnie() + "\n"));
-        } catch (IOException e1) {
-            e1.printStackTrace();
+             PrintWriter printWriter = new PrintWriter(bufferedWriter)) {
+            heroes.forEach(hero -> printWriter.write(hero.parseToString() + "\n"));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-//      W java 7
-//       try {
-//            fileWriter = new FileWriter("./heroes");
-//            bufferedWriter = new BufferedWriter(fileWriter);
-//            printWriter =  new PrintWriter(bufferedWriter);
-//        } catch (IOException e){
-//            e.printStackTrace();
-//        }finally {
-//            if (null != printWriter){
-//                printWriter.close();
-//            }
-//            if (null != printWriter){
-//                bufferedWriter.close();
-//            }
-//            if (null != printWriter){
-//                fileWriter.close();
-//            }
-//
-//        }
-
     public static  List<AbstractHero> readHeroesFromFile (String fileName){
-
         List<AbstractHero> heroes =  new ArrayList<>();
         try (FileReader fileReader = new FileReader(fileName);
              BufferedReader bufferedReader = new BufferedReader(fileReader)) {
-
-           String line =  bufferedReader.readLine();
-           while (line != null){
-               createHeroFromString(line);
-               line = bufferedReader.readLine();
-           }
+                String line =  bufferedReader.readLine();
+                while (line != null){
+                    System.out.println(line+"jjjj");
+                    createHeroFromString(line);
+                    line = bufferedReader.readLine();
+                }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } ;
-
-
+        }
         return heroes;
     }
-
-
 }

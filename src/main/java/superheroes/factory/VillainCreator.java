@@ -17,8 +17,6 @@ public class VillainCreator implements HeroCreator {
     @Override
     public AbstractHero createHeroWithDefaultStats(String name, TeamType type) {
 
-
-
         String defaultAttack  = System.getProperty("confg.Villain.defaultAttack");     //wlasciwosci dla Villain;
         int attack = Integer.parseInt(defaultAttack);
 

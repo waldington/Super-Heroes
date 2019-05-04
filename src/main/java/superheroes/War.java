@@ -1,20 +1,19 @@
 package superheroes;
 
+import lombok.AllArgsConstructor;
 import superheroes.model.AbstractHero;
 import superheroes.model.Team;
 
-import java.util.Random;
-
+@AllArgsConstructor
 public class War {
 
     private Team teamA;
     private Team teamB;
 
-    public Team startWar (Team teamA, Team teamB){
+    public Team startWar(){
         while (teamA.isAnyheroesStillAlive() && teamB.isAnyheroesStillAlive()){
             AbstractHero heroA = teamA.getRandomAliveHero();
             AbstractHero heroB = teamB.getRandomAliveHero();
-
             duel(heroA, heroB);
         }
         return getWinnerTeam(teamA, teamB);
@@ -38,7 +37,6 @@ public class War {
         if (teamA.isAnyheroesStillAlive()){
             System.out.println("wygrala A");
             return teamA;
-
         }else if (teamB.isAnyheroesStillAlive()){
             System.out.println("wygrala b");
             return teamB;
@@ -46,5 +44,4 @@ public class War {
             return null;
         }
     }
-
 }

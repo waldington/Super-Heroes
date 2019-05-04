@@ -8,7 +8,7 @@ import superheroes.util.PropertiesLoader;
 @EqualsAndHashCode
 public class SuperHeroCreator implements HeroCreator {
 
-    private  static final  String SUPER_HERO = "superHero";
+    private  static final String SUPER_HERO = "superHero";
 
     PropertiesLoader propertiesLoader = PropertiesLoader.getInstace();
 
@@ -33,6 +33,10 @@ public class SuperHeroCreator implements HeroCreator {
         String defaultDefense  = System.getProperty("confg.superHero.defaultDefense");
         int defense = Integer.parseInt(defaultDefense);
 
-        return new SuperHero(name, new HeroeStatistics( health, attack, defense), type);
+
+
+
+        return new SuperHero(name, new HeroeStatistics( health, attack,
+                Integer.parseInt(System.getProperty("confg.superHero.defaultDefense"))), type);
     }
 }

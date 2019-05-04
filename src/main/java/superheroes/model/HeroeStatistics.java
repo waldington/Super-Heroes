@@ -2,11 +2,9 @@ package superheroes.model;
 
 import lombok.*;
 
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
-@Getter
-@ToString
-@EqualsAndHashCode
+@NoArgsConstructor
 public class HeroeStatistics {
 
     private int health;
@@ -15,17 +13,13 @@ public class HeroeStatistics {
 
     public void increaseHealth(int amount) {
         this.health += amount;
-
     }
 
     public void increaseAttack(int amount) {
         this.attack += amount;
-
     }
 
     public void increaseDefense(int amount) {
         this.defense += amount;
-
     }
-
 }

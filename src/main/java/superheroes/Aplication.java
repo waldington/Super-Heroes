@@ -13,62 +13,63 @@ import java.io.IOException;
 import java.util.List;
 
 public class Aplication {
-    public static void main(String[] args) throws InvalidHeroTeamException, IOException {
+    public static void main(String[] args) throws InvalidHeroTeamException{
+
         PropertiesLoader.getInstace().loadProperties();
 
         HeroCreator creatorA = new SuperHeroCreator();
+        HeroCreator creatorB = new VillainCreator();
+
         generateHero(creatorA);
+        generateHero(creatorB);
 
-        HeroCreator creatorB = new SuperHeroCreator();
-        generateHeroDefault(creatorB);
-
-        HeroCreator creatorC = new VillainCreator();
-        generateVillain(creatorC);
-
-        HeroCreator creatorD = new VillainCreator();
-        createVillainWithDefaultStats(creatorD);
-
-
+        generateDefaultHero(creatorA);
+        generateDefaultHero(creatorB);
 
         Team teamDC = new Team(TeamType.RED);
-        teamDC.addHeroToTeam(new SuperHero("SuperMan", new HeroeStatistics(20,20,20),TeamType.RED));
-        teamDC.addHeroToTeam(new SuperHero("Batman", new HeroeStatistics(10,10,10),TeamType.RED));
-        teamDC.addHeroToTeam(new SuperHero("AquaMan", new HeroeStatistics(15,20,10),TeamType.RED));
+        teamDC.addHeroToTeam(new SuperHero(
+                "Superman",
+                new HeroeStatistics(20, 20, 20),
+                TeamType.RED));
+        teamDC.addHeroToTeam(new SuperHero(
+                "Batman",
+                new HeroeStatistics(10, 10, 10),
+                TeamType.RED));
+        teamDC.addHeroToTeam(new SuperHero(
+                "Aquaman",
+                new HeroeStatistics(15, 20, 10),
+                TeamType.RED));
 
-       AbstractHeroUtils.saveHeroesToFile(teamDC.getHeroes(), "./heroes.txt");
-//
-//        Team teamMarvel = new Team(TeamType.BLUE);
-//        teamMarvel.addHeroToTeam(new SuperHero("Iron Man", new HeroeStatistics(10,10,20),TeamType.BLUE));
-//        teamMarvel.addHeroToTeam(new SuperHero("Thor", new HeroeStatistics(30,10,20),TeamType.BLUE));
-//        teamMarvel.addHeroToTeam(new SuperHero("Hulk", new HeroeStatistics(15,30,30),TeamType.BLUE));
-//
-//        War war = new War();
-//        war.startWar(teamDC, teamMarvel);
+        Team teamMarvel = new Team(TeamType.BLUE);
+        teamMarvel.addHeroToTeam(new SuperHero(
+                "Iron Man",
+                new HeroeStatistics(10, 10, 20),
+                TeamType.BLUE));
+        teamMarvel.addHeroToTeam(new SuperHero(
+                "Thor",
+                new HeroeStatistics(30, 10, 20),
+                TeamType.BLUE));
+        teamMarvel.addHeroToTeam(new SuperHero(
+                "Hulk",
+                new HeroeStatistics(15, 30, 30),
+                TeamType.BLUE));
 
+        War war = new War(teamDC, teamMarvel);
+        System.out.println(war.startWar());
+
+        AbstractHeroUtils.saveHeroesToFile(teamMarvel.getHeroes(), "./MarvelHeroes");
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println(AbstractHeroUtils.readHeroesFromFile("./MarvelHeroes"));
     }
 
-    public static  void generateHero (HeroCreator creator){
-        AbstractHero hero = creator.createHero("Zenek", new HeroeStatistics( 1,2,3), TeamType.RED);
+    public static void generateHero(HeroCreator creator) {
+        AbstractHero hero = creator
+                .createHero("Zenek", new HeroeStatistics(10, 5, 15), TeamType.RED);
         System.out.println(hero);
-
     }
 
-    public static  void  generateHeroDefault (HeroCreator creator){
-        AbstractHero hero2 = creator.createHeroWithDefaultStats("Zbyszek", TeamType.GREEN);
-        System.out.println(hero2);
+    public static void generateDefaultHero(HeroCreator creator) {
+        AbstractHero hero = creator.createHeroWithDefaultStats("Bartek", TeamType.BLUE);
+        System.out.println(hero);
     }
-
-    public  static void generateVillain (HeroCreator creatorVillain){
-        AbstractHero villlain = creatorVillain.createHero("Jurek",new HeroeStatistics( 5,4,6),TeamType.RED);
-        System.out.println(villlain);
-    }
-
-    public static void createVillainWithDefaultStats (HeroCreator creatorVillain){
-        AbstractHero villlain2 = creatorVillain.createHeroWithDefaultStats("Marta", TeamType.GREEN);
-        System.out.println(villlain2);
-    }
-
-
-
-
 }
